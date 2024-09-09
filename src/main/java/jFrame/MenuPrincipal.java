@@ -11,7 +11,7 @@ import laboratorio.practica6.Categoria;
 
 /**
  *
- * @author Tomas
+ * @author Roma
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 public static TreeSet<Producto> listaProductos =new TreeSet<>(); 

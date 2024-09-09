@@ -29,7 +29,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLLetras" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTBusxPrecio" min="-2" pref="216" max="-2" attributes="0"/>
+                      <Component id="jTPrecio1" min="-2" pref="58" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jTPrecio2" min="-2" pref="54" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -48,7 +52,9 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLLetras" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTBusxPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTPrecio1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jTPrecio2" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="97" max="-2" attributes="0"/>
@@ -65,12 +71,13 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLLetras">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ingrese primeros numeros"/>
+        <Property name="text" type="java.lang.String" value="Ingrese precio entre:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTBusxPrecio">
+    <Component class="javax.swing.JTextField" name="jTPrecio1">
       <Events>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTBusxPrecioKeyReleased"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTPrecio1ActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTPrecio1KeyReleased"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -94,5 +101,15 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="y"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="jTPrecio2">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTPrecio2ActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

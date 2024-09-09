@@ -9,7 +9,7 @@ import laboratorio.practica6.Producto;
 
 /**
  *
- * @author Tomas
+ * @author Roma
  */
 public class ProductoData {
     private ArrayList<Producto> listaP= new ArrayList<>();

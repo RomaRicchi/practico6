@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Tomas
+ * @author Roma
  */
 public class CategoriaData {
     

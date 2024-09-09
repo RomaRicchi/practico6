@@ -9,7 +9,7 @@ import laboratorio.practica6.Producto;
 
 /**
  *
- * @author Tomas
+ * @author Roma
  */
 public class BusquedaPorNombre extends javax.swing.JInternalFrame {
     private DefaultTableModel modelo= new DefaultTableModel(){

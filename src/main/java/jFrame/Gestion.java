@@ -11,7 +11,7 @@ import Data.CategoriaData;
 
 /**
  *
- * @author Tomas
+ * @author Roma
  */
 public class Gestion extends javax.swing.JInternalFrame {
  private DefaultTableModel modelo= new DefaultTableModel(){

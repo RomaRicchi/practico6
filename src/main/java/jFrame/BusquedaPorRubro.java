@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Tomas
+ * @author Roma
  */
 public class BusquedaPorRubro extends javax.swing.JInternalFrame {
  private DefaultTableModel modelo= new DefaultTableModel(){
