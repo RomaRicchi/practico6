@@ -37,20 +37,15 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLTituloxPrecio = new javax.swing.JLabel();
-        jLLetras = new javax.swing.JLabel();
-        jTBusxPrecio = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablexPrecio = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
 
-        jLTituloxPrecio.setText("PRODUCTOS POR PRECIO");
-
-        jLLetras.setText("Ingrese primeros numeros");
-
-        jTBusxPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTBusxPrecioKeyReleased(evt);
-            }
-        });
+        jLTituloxPrecio.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
+        jLTituloxPrecio.setText("Listado por Producto");
 
         jTablexPrecio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -65,6 +60,12 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jTablexPrecio);
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setText("Entre $");
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setText("y");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -72,68 +73,49 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
+                        .addGap(18, 18, 18)
                         .addComponent(jLTituloxPrecio))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLLetras)
+                        .addGap(51, 51, 51)
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTBusxPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addGap(42, 42, 42)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addComponent(jLTituloxPrecio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLLetras)
-                    .addComponent(jTBusxPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTBusxPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTBusxPrecioKeyReleased
-       borrarFilas(); // Limpia la tabla al iniciar la búsqueda.
-    String textoBusqueda = jTBusxPrecio.getText().trim(); // Obtiene el texto ingresado y elimina espacios en blanco.
-    
-    if (!textoBusqueda.isEmpty()) { // Solo busca si hay texto en el campo.
-        try {
-            double codigoBusqueda = Integer.parseInt(textoBusqueda); // Convierte el texto a entero.
-            for (Producto prod : MenuPrincipal.listaProductos) {
-                if (prod.getCodigo() == codigoBusqueda) { // Compara el código del producto con la entrada.
-                    modelo.addRow(new Object[]{
-                        prod.getCodigo(),
-                        prod.getDescripcion(),
-                        prod.getStock(),
-                        prod.getPrecio(),
-                        prod.getRubro(),
-                    });
-                }
-             }
-        } catch (NumberFormatException e) {
-            // Si el texto ingresado no es un número válido, no hace nada.
-            // Podrías mostrar un mensaje de error o simplemente ignorar la entrada inválida.
-            System.out.println("Por favor ingresa un número válido.");
-        }
-    }
-    }//GEN-LAST:event_jTBusxPrecioKeyReleased
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLLetras;
     private javax.swing.JLabel jLTituloxPrecio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTBusxPrecio;
     private javax.swing.JTable jTablexPrecio;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 public void armarModelo(){
        modelo.addColumn("Codigo");
