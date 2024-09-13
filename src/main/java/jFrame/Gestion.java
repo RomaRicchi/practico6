@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import laboratorio.practica6.Categoria;
 import Data.CategoriaData;
+import laboratorio.practica6.Producto;
 
 /**
  *
@@ -359,6 +360,18 @@ public class Gestion extends javax.swing.JInternalFrame {
        modelo.addColumn("Precio");
        modelo.addColumn("Rubro");
        jTablexRubro.setModel(modelo);
+    }
+    
+    public void crearProducto(){
+        int codigo = Integer.parseInt(jtCodigo.getText());
+        String descripcion = jtDescripcion.getText();
+        double precio = Double.parseDouble(jtPrecio.getText());
+        String rubro = (String)jcRubro.getSelectedItem();
+        int stock = (int) jsStock.getValue();
+        
+        //Producto productos = new Producto(codigo, descripcion, stock, precio, rubro);
+        
+        
     }
 
 }
