@@ -1,9 +1,9 @@
 
-package laboratorio.practica6;
+package clases;
 
 import java.util.Objects;
 
-public class Producto {
+public class Producto implements Comparable<Producto>{
     
     private int Codigo;
     private String Descripcion;
@@ -103,6 +103,11 @@ public class Producto {
             return false;
         }
         return Objects.equals(this.rubro, other.rubro);
+    }
+
+    @Override
+    public int compareTo(Producto unProducto) {
+        return Integer.compare(this.Codigo, unProducto.getCodigo());
     }
     
 }

@@ -1,31 +1,28 @@
 
-package laboratorio.practica6;
+package clases;
 
 import java.util.Iterator;
 import java.util.TreeSet;
-import javax.swing.JTable;
+import jFrame.MenuPrincipal;
 
 public class Gestiones{
 
-    private TreeSet<Producto> productos ; //Almacenamos todos los productos del TreeSet
-    private JTable tablaProductos; //La tabla de los productos
 
-    public Gestiones(TreeSet<Integer> productos) {
-        this.productos = new TreeSet<>();
+    public Gestiones() {
     }
 
     public void agregarProducto(Producto unProducto){
-        productos.add(unProducto);
+        MenuPrincipal.listaProductos.add(unProducto);
     }
     
     public void borrarProducto(Producto unProducto){
-        productos.remove(unProducto);
+        MenuPrincipal.listaProductos.remove(unProducto);
     }
     
     public TreeSet<Producto> filtrarxRubro(String unRubro){ //Se usa el TreeSet y el Iterator
         
         TreeSet<Producto> filtRubro = new TreeSet<>();
-        Iterator<Producto> it = productos.iterator(); //Creamos el iterator para recorrer a los productos
+        Iterator<Producto> it = MenuPrincipal.listaProductos.iterator(); //Creamos el iterator para recorrer a los productos
         
         while(it.hasNext()){
             Producto producto = it.next();
@@ -40,12 +37,12 @@ public class Gestiones{
     public TreeSet<Producto> buscarXPrecio(double precioMin, double precioMax){
         
         TreeSet<Producto> buscarPrecio = new TreeSet<>();
-        Iterator<Producto> it = productos.iterator(); //Creamos el iterator para recorrer a los productos
+        Iterator<Producto> it = MenuPrincipal.listaProductos.iterator(); //Creamos el iterator para recorrer a los productos
         
         while(it.hasNext()){
             Producto producto = it.next();
-            if((producto.getPrecio() >= precioMin) && (producto.getPrecio() <= precioMax)){ //Comparamos los rubros con el rubro del ComboBox
-                buscarPrecio.add(producto); //Agregamos el producto al TreeSet de filtRubro
+            if((producto.getPrecio() >= precioMin) && (producto.getPrecio() <= precioMax)){ //Comparamos los precios, Para que sea entre un Min y Max
+                buscarPrecio.add(producto); //Agregamos el producto al TreeSet de buscarPrecio
             }
         }
         return buscarPrecio; //Retornamos el TreeSet
@@ -53,12 +50,12 @@ public class Gestiones{
     
     public TreeSet<Producto> buscarDescripcion(String unDescripcion){
         TreeSet<Producto> buscarDescripcion = new TreeSet<>();
-        Iterator<Producto> it = productos.iterator(); //Creamos el iterator para recorrer a los productos
+        Iterator<Producto> it = MenuPrincipal.listaProductos.iterator(); //Creamos el iterator para recorrer a los productos
         
         while(it.hasNext()){
             Producto producto = it.next();
-            if(producto.getDescripcion().contains(unDescripcion)){ //Comparamos los rubros con el rubro del ComboBox
-                buscarDescripcion.add(producto); //Agregamos el producto al TreeSet de filtRubro
+            if(producto.getDescripcion().contains(unDescripcion)){ //Comparamos la descripcion con la descripcion pasada por parametro
+                buscarDescripcion.add(producto); //Agregamos el producto al TreeSet de buscarDescripcion
             }
         }
         return buscarDescripcion; //Retornamos el TreeSet

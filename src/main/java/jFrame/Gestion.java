@@ -6,7 +6,10 @@ package jFrame;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import laboratorio.practica6.Producto;
+import clases.Producto;
+import static jFrame.MenuPrincipal.listaProductos;
+import clases.Gestiones;
+import java.util.TreeSet;
 /**
  *
  * @author Tomas
@@ -29,6 +32,8 @@ public class Gestion extends javax.swing.JInternalFrame {
        // cd = new CategoriaData();
        // llenarCombos();
         desactivarCampos();
+        TablasxFiltrado("Comestible");
+        
     }
 
     /**
@@ -65,6 +70,12 @@ public class Gestion extends javax.swing.JInternalFrame {
 
         setTitle("De todo S.A: Productos");
 
+        jCRubro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCRubroActionPerformed(evt);
+            }
+        });
+
         jLTituloGestionP.setFont(new java.awt.Font("Bahnschrift", 1, 24)); // NOI18N
         jLTituloGestionP.setText("GESTIÓN DE PRODUCTOS ");
 
@@ -78,6 +89,11 @@ public class Gestion extends javax.swing.JInternalFrame {
 
             }
         ));
+        jTablexRubro.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablexRubroMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTablexRubro);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -169,6 +185,7 @@ public class Gestion extends javax.swing.JInternalFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
+        jBNuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-new.png")); // NOI18N
         jBNuevo.setText("Nuevo");
         jBNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,6 +193,7 @@ public class Gestion extends javax.swing.JInternalFrame {
             }
         });
 
+        jBGuardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-save.png")); // NOI18N
         jBGuardar.setText("Guardar");
         jBGuardar.setEnabled(false);
         jBGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -184,9 +202,11 @@ public class Gestion extends javax.swing.JInternalFrame {
             }
         });
 
+        jBActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon-update.png"))); // NOI18N
         jBActualizar.setText("Actualizar");
         jBActualizar.setEnabled(false);
 
+        jBBorrar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-delete.png")); // NOI18N
         jBBorrar.setText("Eliminar");
         jBBorrar.setEnabled(false);
 
@@ -197,26 +217,35 @@ public class Gestion extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-search.png")); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLTituloGestionP)
+                .addGap(95, 95, 95))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 1, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBSalir)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLRubro1)
                         .addGap(18, 18, 18)
                         .addComponent(jCRubro, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBSalir)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jBNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,10 +254,6 @@ public class Gestion extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBBorrar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLTituloGestionP)
-                .addGap(95, 95, 95))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,14 +265,14 @@ public class Gestion extends javax.swing.JInternalFrame {
                     .addComponent(jLRubro1)
                     .addComponent(jCRubro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(28, 28, 28)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBSalir)
@@ -257,14 +282,14 @@ public class Gestion extends javax.swing.JInternalFrame {
                     .addComponent(jBGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBGuardarActionPerformed
-        // TODO add your handling code here:
+        crearProducto();
     }//GEN-LAST:event_jBGuardarActionPerformed
 
     private void jtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtPrecioActionPerformed
@@ -302,6 +327,15 @@ public class Gestion extends javax.swing.JInternalFrame {
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jCRubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCRubroActionPerformed
+        String categoria = (String)jCRubro.getSelectedItem();
+        TablasxFiltrado(categoria);
+    }//GEN-LAST:event_jCRubroActionPerformed
+
+    private void jTablexRubroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablexRubroMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTablexRubroMouseClicked
     
     
     
@@ -365,26 +399,40 @@ public class Gestion extends javax.swing.JInternalFrame {
     }
     
     public void crearProducto(){
+        Gestiones gestiones = new Gestiones(); //Instanciamos para poder usar sus metodos
+        
         try{
         int codigo = Integer.parseInt(jtCodigo.getText());
         String descripcion = jtDescripcion.getText();
         double precio = Double.parseDouble(jtPrecio.getText());
         String rubro = (String)jcRubro.getSelectedItem();
         int stock = (int) jsStock.getValue();
-        
+
         Producto productos = new Producto(codigo, descripcion, precio, rubro, stock);
         
-        /*if(!listaProductos.containsKey(nombre)){ dsp lo veo
-            listaProductos.put(nombre, productos);
+        boolean existente = false;
+        //Control para que no se pueda agregar un producto con el mismo codigo
+        for(Producto producto : listaProductos){
+            if(producto.getCodigo() == codigo){
+                existente = true;
+                break;
+            }
+        }
+        //Si el producto no tiene el mismo codigo, Se va agregar
+        if(!existente){
+            gestiones.agregarProducto(productos);
             JOptionPane.showMessageDialog(this, "El producto fue agregado con exito!");
-        }else{
+        }else{ //En caso contrario, No dejara agregarlo y debera ingresar otro codigo
             JOptionPane.showMessageDialog(this, "No se puede agregar un producto existente!", "Error" ,JOptionPane.ERROR_MESSAGE);
         }
-        */
+        
         }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "El precio tiene un valor numerico!", "Error" ,JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "El precio debe tener un valor numerico!", "Error" ,JOptionPane.ERROR_MESSAGE);
         
         }
+            //Nos sirve para actualizar la tabla anterior
+            String categoria = (String)jCRubro.getSelectedItem();
+            TablasxFiltrado(categoria);  
         
     }
     
@@ -396,6 +444,22 @@ public class Gestion extends javax.swing.JInternalFrame {
         jCRubro.addItem("Comestible");
         jCRubro.addItem("Limpieza");
         jCRubro.addItem("Perfumeria");    
+    }
+    
+    public void TablasxFiltrado(String filtradoRubro){        
+        modelo.setRowCount(0);
+        
+        Gestiones gestiones = new Gestiones();
+        TreeSet<Producto> filtrado = gestiones.filtrarxRubro(filtradoRubro);
+        for(Producto productos : filtrado){
+            modelo.addRow(new Object[]{productos.getCodigo(), 
+                                      productos.getDescripcion(),
+                                      productos.getPrecio(),
+                                      productos.getRubro(),
+                                      productos.getStock()}
+            );
+        }
+        
     }
 
 }

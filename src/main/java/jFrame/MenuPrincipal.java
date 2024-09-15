@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package jFrame;
-import laboratorio.practica6.Producto;
+import clases.Producto;
 import java.util.TreeSet;
 
 /**
@@ -17,6 +17,7 @@ public static TreeSet<Producto> listaProductos = new TreeSet<>();
      */
     public MenuPrincipal() {
         initComponents();
+        cargarProductos();
     }
 
     /**
@@ -47,7 +48,7 @@ public static TreeSet<Producto> listaProductos = new TreeSet<>();
         );
         JEscritorioLayout.setVerticalGroup(
             JEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
+            .addGap(0, 706, Short.MAX_VALUE)
         );
 
         jMenuAdmin.setText("Administracion ");
@@ -198,13 +199,19 @@ public static TreeSet<Producto> listaProductos = new TreeSet<>();
     private javax.swing.JMenuItem jMenuxRubro2;
     // End of variables declaration//GEN-END:variables
 
-    /*public void cargarProductos(){
-        listaProductos.add(new Producto(189,"Azucar 1kg", 34, 725.6,  almacen));
-        listaProductos.add(new Producto(456,"LECHE 1L", 54, 5967.6, fiambres));
-        listaProductos.add(new Producto(4875,"tupper 500ml", 98, 2984.6, bazar));
-        listaProductos.add(new Producto(237,"desodorante rexona", 75, 984.6, perfumeria));
-        listaProductos.add(new Producto(567,"lavandina 1L", 32, 1984.6, limpieza));
-    }*/
+    public void cargarProductos(){
+        listaProductos.add(new Producto(189, "Azucar 1kg", 725.6, "Comestible", 34));
+        listaProductos.add(new Producto(456, "Leche 1L", 5967, "Comestible", 54));
+        listaProductos.add(new Producto(200, "Desodorante rexona", 984.6, "Perfumeria", 75));
+        listaProductos.add(new Producto(890, "Jabón en polvo 800g", 432.5, "Limpieza", 27));
+        listaProductos.add(new Producto(567, "Lavandina 1L", 1984.6, "Limpieza", 32));
+        listaProductos.add(new Producto(789, "Detergente 500ml", 299.9, "Limpieza", 40));
+        listaProductos.add(new Producto(234, "Escoba", 785.3, "Limpieza", 15));
+        listaProductos.add(new Producto(901, "Harina 1kg", 180.3, "Comestible", 50));
+        listaProductos.add(new Producto(112, "Arroz 1kg", 250.7, "Comestible", 45));
+        listaProductos.add(new Producto(345, "Shampoo 500ml", 1025.5, "Perfumeria", 20));
+        listaProductos.add(new Producto(678, "Crema corporal 200ml", 1540.8, "Perfumeria", 10));
+    }
  
    
     

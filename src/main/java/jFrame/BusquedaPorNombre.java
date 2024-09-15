@@ -5,7 +5,7 @@
 package jFrame;
 
 import javax.swing.table.DefaultTableModel;
-import laboratorio.practica6.Producto;
+import clases.Producto;
 
 /**
  *
