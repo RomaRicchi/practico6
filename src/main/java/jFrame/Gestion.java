@@ -9,13 +9,19 @@ import javax.swing.table.DefaultTableModel;
 import clases.Producto;
 import static jFrame.MenuPrincipal.listaProductos;
 import clases.Gestiones;
+import java.awt.Component;
+import java.util.Iterator;
 import java.util.TreeSet;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 /**
  *
  * @author Tomas
  */
 public class Gestion extends javax.swing.JInternalFrame {
- private DefaultTableModel modelo= new DefaultTableModel(){
+     private DefaultTableModel modelo= new DefaultTableModel(){
+
             
         public boolean isCellEditable(int fila, int column){
             return false;// evita la modificacion de datos en las celdas
@@ -66,7 +72,7 @@ public class Gestion extends javax.swing.JInternalFrame {
         jBActualizar = new javax.swing.JButton();
         jBBorrar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jbBuscador = new javax.swing.JButton();
 
         setTitle("De todo S.A: Productos");
 
@@ -101,6 +107,11 @@ public class Gestion extends javax.swing.JInternalFrame {
         jLStock.setText("Stock");
 
         jsStock.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jsStock.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jsStockFocusLost(evt);
+            }
+        });
 
         jLRubro2.setText("Rubro:");
 
@@ -205,10 +216,20 @@ public class Gestion extends javax.swing.JInternalFrame {
         jBActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon-update.png"))); // NOI18N
         jBActualizar.setText("Actualizar");
         jBActualizar.setEnabled(false);
+        jBActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBActualizarActionPerformed(evt);
+            }
+        });
 
         jBBorrar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-delete.png")); // NOI18N
         jBBorrar.setText("Eliminar");
         jBBorrar.setEnabled(false);
+        jBBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBorrarActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("Cerrar");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +238,12 @@ public class Gestion extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-search.png")); // NOI18N
+        jbBuscador.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-search.png")); // NOI18N
+        jbBuscador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscadorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -233,7 +259,7 @@ public class Gestion extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jBSalir)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jbBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -273,7 +299,7 @@ public class Gestion extends javax.swing.JInternalFrame {
                         .addGap(30, 30, 30))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbBuscador, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jBSalir)
                         .addGap(63, 63, 63)))
@@ -302,7 +328,10 @@ public class Gestion extends javax.swing.JInternalFrame {
 
     private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
        activarCampos();
-       jBGuardar.setEnabled(true);   
+       jBGuardar.setEnabled(true);
+       jBBorrar.setEnabled(false);
+       jBActualizar.setEnabled(false);
+       vaciarCampos(jPanel1);//Vaciamos los campos, Despues de presionar nuevo
     }//GEN-LAST:event_jBNuevoActionPerformed
 
     private void jtCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtCodigoFocusLost
@@ -334,8 +363,67 @@ public class Gestion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jCRubroActionPerformed
 
     private void jTablexRubroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablexRubroMouseClicked
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jTablexRubroMouseClicked
+
+    private void jbBuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscadorActionPerformed
+        
+        int filaSeleccionada = jTablexRubro.getSelectedRow();
+        try{
+        jtCodigo.setText(jTablexRubro.getValueAt(filaSeleccionada, 0).toString());
+        jtDescripcion.setText(jTablexRubro.getValueAt(filaSeleccionada, 1).toString());
+        jtPrecio.setText(jTablexRubro.getValueAt(filaSeleccionada, 2).toString());
+        jcRubro.setSelectedItem(jTablexRubro.getValueAt(filaSeleccionada, 3).toString());
+        jsStock.setValue(Integer.parseInt(jTablexRubro.getValueAt(filaSeleccionada, 4).toString()));
+        jBActualizar.setEnabled(true);
+        jBBorrar.setEnabled(true);
+        activarCampos();
+        jBGuardar.setEnabled(false);
+        jtCodigo.setEnabled(false);
+        }catch(ArrayIndexOutOfBoundsException e){
+            JOptionPane.showMessageDialog(this, "No hay ninguna fila selecciona de la tabla!","Error" ,JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbBuscadorActionPerformed
+
+    private void jBActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBActualizarActionPerformed
+        int filaSeleccionada = jTablexRubro.getSelectedRow();
+        try{
+        if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(this, "No hay ninguna fila selecciona de la tabla!","Error" ,JOptionPane.ERROR_MESSAGE);
+        }else{
+        boolean condicion = true;
+        ActualizarProducto(condicion);//Nos permite agregar el producto
+        }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "No hay ninguna fila selecciona de la tabla!","Error" ,JOptionPane.ERROR_MESSAGE);
+        }
+        
+        jBActualizar.setEnabled(false);
+        jBBorrar.setEnabled(false);
+        vaciarCampos(jPanel1);
+    }//GEN-LAST:event_jBActualizarActionPerformed
+
+    private void jBBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBorrarActionPerformed
+        int filaSeleccionada = jTablexRubro.getSelectedRow();
+        try{
+        if(filaSeleccionada == -1){
+            JOptionPane.showMessageDialog(this, "No hay ninguna fila selecciona de la tabla!","Error" ,JOptionPane.ERROR_MESSAGE);
+        }else{
+        boolean condicion = false;
+        ActualizarProducto(condicion);//Nos permite agregar el producto
+        }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "No hay ninguna fila selecciona de la tabla!","Error" ,JOptionPane.ERROR_MESSAGE);
+        }
+        
+        jBActualizar.setEnabled(false);
+        jBBorrar.setEnabled(false);
+        vaciarCampos(jPanel1);
+    }//GEN-LAST:event_jBBorrarActionPerformed
+
+    private void jsStockFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jsStockFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jsStockFocusLost
     
     
     
@@ -351,16 +439,16 @@ public class Gestion extends javax.swing.JInternalFrame {
         jtCodigo.setEnabled(true);
         jtDescripcion.setEnabled(true);
         jtPrecio.setEnabled(true);
-        jTablexRubro.setEnabled(true);
         jsStock.setEnabled(true);              
+        jcRubro.setEnabled(true);
     }
     
     private void desactivarCampos(){
         jtCodigo.setEnabled(false);
         jtDescripcion.setEnabled(false);
         jtPrecio.setEnabled(false);
-        jTablexRubro.setEnabled(false);
-        jsStock.setEnabled(false);           
+        jsStock.setEnabled(false);
+        jcRubro.setEnabled(false);
     }
     
 
@@ -370,7 +458,6 @@ public class Gestion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBGuardar;
     private javax.swing.JButton jBNuevo;
     private javax.swing.JButton jBSalir;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jCRubro;
     private javax.swing.JLabel jLCodigo;
     private javax.swing.JLabel jLDescripcion;
@@ -382,6 +469,7 @@ public class Gestion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablexRubro;
+    private javax.swing.JButton jbBuscador;
     private javax.swing.JComboBox<String> jcRubro;
     private javax.swing.JSpinner jsStock;
     private javax.swing.JTextField jtCodigo;
@@ -389,16 +477,23 @@ public class Gestion extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jtPrecio;
     // End of variables declaration//GEN-END:variables
 
-    public void armarModelo(){
+    public void armarModelo(){ //Armamos las columnas de tabla
        modelo.addColumn("Codigo");
        modelo.addColumn("Descripcion");
-       modelo.addColumn("Stock");
        modelo.addColumn("Precio");
-       modelo.addColumn("Rubro");
+       modelo.addColumn("Categoria");
+       modelo.addColumn("Stock");
        jTablexRubro.setModel(modelo);
     }
     
+    //Nos sirve para crear un producto nuevo, Tambien es reutilizado el metodo para Actualizar un producto
     public void crearProducto(){
+        //Nos sirve para validar si los campos estan llenos, En caso contrario, Le obliga a llenarlos para proceder
+        if(!validarCamposVacios(jPanel1)){
+            JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos!", "Error", JOptionPane.ERROR_MESSAGE);
+            return; //Detenemos el metodo
+        }
+        
         Gestiones gestiones = new Gestiones(); //Instanciamos para poder usar sus metodos
         
         try{
@@ -421,18 +516,18 @@ public class Gestion extends javax.swing.JInternalFrame {
         //Si el producto no tiene el mismo codigo, Se va agregar
         if(!existente){
             gestiones.agregarProducto(productos);
-            JOptionPane.showMessageDialog(this, "El producto fue agregado con exito!");
         }else{ //En caso contrario, No dejara agregarlo y debera ingresar otro codigo
             JOptionPane.showMessageDialog(this, "No se puede agregar un producto existente!", "Error" ,JOptionPane.ERROR_MESSAGE);
         }
         
         }catch(NumberFormatException e){
-            JOptionPane.showMessageDialog(this, "El precio debe tener un valor numerico!", "Error" ,JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ingreso un valor invalido en un campo!", "Error" ,JOptionPane.ERROR_MESSAGE);
+            return;
         
         }
-            //Nos sirve para actualizar la tabla anterior
-            String categoria = (String)jCRubro.getSelectedItem();
-            TablasxFiltrado(categoria);  
+        //Nos sirve para actualizar la tabla anterior
+        String categoria = (String)jCRubro.getSelectedItem();
+        TablasxFiltrado(categoria);  
         
     }
     
@@ -461,5 +556,68 @@ public class Gestion extends javax.swing.JInternalFrame {
         }
         
     }
+    
+    public void ActualizarProducto(boolean condicion){ //Nos permite borrar o actualizar un producto
+        int obtenerCodigo = Integer.parseInt(jtCodigo.getText());        
+        Iterator<Producto> it = listaProductos.iterator();
+        
+        while(it.hasNext()){
+            Producto producto = it.next();
+            if(producto.getCodigo() == obtenerCodigo){
+                it.remove();//Borramos un elemento del TreeSet
+            }
+        }
+        if(condicion){
+            JOptionPane.showMessageDialog(this, "El producto fue actualizado");
+            crearProducto();//Y volvemos a usar el metodo, Para crearlo denuevo al elemento
+        }else{
+            JOptionPane.showMessageDialog(this, "El producto fue borrado con exito!");
+            vaciarCampos(jPanel1); //Despues de borrar el producto, Vaciamos los campos
+            //Nos sirve para actualizar la tabla anterior
+            
+            String categoria = (String)jCRubro.getSelectedItem();
+            TablasxFiltrado(categoria);
+        }
+    }
+    
+// El método regresa true si todos los campos están llenos
+// false si alguno está vacío
+    public boolean validarCamposVacios(JPanel jPanel) {
+    for (Component c : jPanel.getComponents()) {
+        if (c instanceof JTextField) {
+            JTextField caja = (JTextField) c;
+            if (caja.getText().trim().isEmpty()) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
+    public void vaciarCampos(JPanel jPanel) {
+    JComboBox combo = null;
+    
+    //Nos sirve para vaciar los textAField
+    for (Component c : jPanel.getComponents()) {
+        if (c instanceof JTextField) {
+            JTextField caja = (JTextField) c;
+            caja.setText("");
+        }
+    }
+    //nos sirve para vaciar los ComboBox
+    for (int i = 0; i < jPanel.getComponents().length; i++) {
+        if (jPanel.getComponents()[i] instanceof JTextField) {
+            JTextField caja = (JTextField) jPanel.getComponents()[i];
+            caja.setText("");
+        }
+        
+        if (jPanel.getComponents()[i] instanceof JComboBox) {
+            combo = (JComboBox) jPanel.getComponents()[i];
+            combo.setSelectedIndex(-1);
+        }
+    }
+    //Vaciamos el Spinner
+    jsStock.setValue(0);
+}
+    
 }
