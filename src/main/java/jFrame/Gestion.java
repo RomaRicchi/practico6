@@ -6,10 +6,7 @@ package jFrame;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import laboratorio.practica6.Categoria;
-import Data.CategoriaData;
 import laboratorio.practica6.Producto;
-
 /**
  *
  * @author Tomas
@@ -22,15 +19,15 @@ public class Gestion extends javax.swing.JInternalFrame {
         }
     };
  
-    private CategoriaData cd;
     /**
      * Creates new form Gestion
      */
     public Gestion() {
         initComponents();
+        CargarCategoria();
         armarModelo();
-        cd = new CategoriaData();
-        llenarCombos();
+       // cd = new CategoriaData();
+       // llenarCombos();
         desactivarCampos();
     }
 
@@ -87,7 +84,9 @@ public class Gestion extends javax.swing.JInternalFrame {
 
         jLStock.setText("Stock");
 
-        jLRubro2.setText("Rubro");
+        jsStock.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        jLRubro2.setText("Rubro:");
 
         jLPrecio.setText("Precio");
 
@@ -170,7 +169,6 @@ public class Gestion extends javax.swing.JInternalFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        jBNuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-new.png")); // NOI18N
         jBNuevo.setText("Nuevo");
         jBNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +176,6 @@ public class Gestion extends javax.swing.JInternalFrame {
             }
         });
 
-        jBGuardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-save.png")); // NOI18N
         jBGuardar.setText("Guardar");
         jBGuardar.setEnabled(false);
         jBGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -187,17 +184,18 @@ public class Gestion extends javax.swing.JInternalFrame {
             }
         });
 
-        jBActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-update.png"))); // NOI18N
         jBActualizar.setText("Actualizar");
         jBActualizar.setEnabled(false);
 
-        jBBorrar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-delete.png")); // NOI18N
         jBBorrar.setText("Eliminar");
         jBBorrar.setEnabled(false);
 
         jBSalir.setText("Cerrar");
-
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-search.png")); // NOI18N
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -300,16 +298,20 @@ public class Gestion extends javax.swing.JInternalFrame {
     private void jtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtPrecioFocusLost
       
     }//GEN-LAST:event_jtPrecioFocusLost
+
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jBSalirActionPerformed
     
     
     
-    private void llenarCombos(){
-        CategoriaData cd = new CategoriaData();
-        for(Categoria c:cd.obtenerCategorias()){
-            jCRubro.addItem(c);
-            jcRubro.addItem(c);
-        }
-    }
+    //private void llenarCombos(){
+    //    CategoriaData cd = new CategoriaData();
+    //    for(Categoria c:cd.obtenerCategorias()){
+    //        jCRubro.addItem(c);
+    //        jcRubro.addItem(c);
+    //    }
+    //}
     
     private void activarCampos(){
         jtCodigo.setEnabled(true);
@@ -335,7 +337,7 @@ public class Gestion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBNuevo;
     private javax.swing.JButton jBSalir;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<Categoria> jCRubro;
+    private javax.swing.JComboBox<String> jCRubro;
     private javax.swing.JLabel jLCodigo;
     private javax.swing.JLabel jLDescripcion;
     private javax.swing.JLabel jLPrecio;
@@ -346,7 +348,7 @@ public class Gestion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablexRubro;
-    private javax.swing.JComboBox<Categoria> jcRubro;
+    private javax.swing.JComboBox<String> jcRubro;
     private javax.swing.JSpinner jsStock;
     private javax.swing.JTextField jtCodigo;
     private javax.swing.JTextField jtDescripcion;
@@ -363,15 +365,37 @@ public class Gestion extends javax.swing.JInternalFrame {
     }
     
     public void crearProducto(){
+        try{
         int codigo = Integer.parseInt(jtCodigo.getText());
         String descripcion = jtDescripcion.getText();
         double precio = Double.parseDouble(jtPrecio.getText());
         String rubro = (String)jcRubro.getSelectedItem();
         int stock = (int) jsStock.getValue();
         
-        //Producto productos = new Producto(codigo, descripcion, stock, precio, rubro);
+        Producto productos = new Producto(codigo, descripcion, precio, rubro, stock);
         
+        /*if(!listaProductos.containsKey(nombre)){ dsp lo veo
+            listaProductos.put(nombre, productos);
+            JOptionPane.showMessageDialog(this, "El producto fue agregado con exito!");
+        }else{
+            JOptionPane.showMessageDialog(this, "No se puede agregar un producto existente!", "Error" ,JOptionPane.ERROR_MESSAGE);
+        }
+        */
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "El precio tiene un valor numerico!", "Error" ,JOptionPane.ERROR_MESSAGE);
         
+        }
+        
+    }
+    
+    public void CargarCategoria(){ //Nos permite cargar las categorias del ComboBox
+        jcRubro.addItem("Comestible");
+        jcRubro.addItem("Limpieza");
+        jcRubro.addItem("Perfumeria");
+        
+        jCRubro.addItem("Comestible");
+        jCRubro.addItem("Limpieza");
+        jCRubro.addItem("Perfumeria");    
     }
 
 }

@@ -3,24 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package jFrame;
-import Data.CategoriaData;
-import jFrame.Gestion;
 import laboratorio.practica6.Producto;
 import java.util.TreeSet;
-import laboratorio.practica6.Categoria;
 
 /**
  *
  * @author Tomas
  */
 public class MenuPrincipal extends javax.swing.JFrame {
-public static TreeSet<Producto> listaProductos =new TreeSet<>(); 
+public static TreeSet<Producto> listaProductos = new TreeSet<>(); 
     /**
      * Creates new form MenuPrincipal
      */
     public MenuPrincipal() {
         initComponents();
-        cargarProductos();
     }
 
     /**
@@ -36,7 +32,7 @@ public static TreeSet<Producto> listaProductos =new TreeSet<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuAdmin = new javax.swing.JMenu();
         jMenuProduct1 = new javax.swing.JMenuItem();
-        jMenuCunsultas = new javax.swing.JMenu();
+        jMenuConsultas = new javax.swing.JMenu();
         jMenuxRubro2 = new javax.swing.JMenuItem();
         jMenuxNom3 = new javax.swing.JMenuItem();
         jMenuxPrec4 = new javax.swing.JMenuItem();
@@ -66,10 +62,10 @@ public static TreeSet<Producto> listaProductos =new TreeSet<>();
 
         jMenuBar1.add(jMenuAdmin);
 
-        jMenuCunsultas.setText("Consultas");
-        jMenuCunsultas.addActionListener(new java.awt.event.ActionListener() {
+        jMenuConsultas.setText("Consultas");
+        jMenuConsultas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuCunsultasActionPerformed(evt);
+                jMenuConsultasActionPerformed(evt);
             }
         });
 
@@ -79,7 +75,7 @@ public static TreeSet<Producto> listaProductos =new TreeSet<>();
                 jMenuxRubro2ActionPerformed(evt);
             }
         });
-        jMenuCunsultas.add(jMenuxRubro2);
+        jMenuConsultas.add(jMenuxRubro2);
 
         jMenuxNom3.setText("Por nombre");
         jMenuxNom3.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +83,7 @@ public static TreeSet<Producto> listaProductos =new TreeSet<>();
                 jMenuxNom3ActionPerformed(evt);
             }
         });
-        jMenuCunsultas.add(jMenuxNom3);
+        jMenuConsultas.add(jMenuxNom3);
 
         jMenuxPrec4.setText("Por precio");
         jMenuxPrec4.addActionListener(new java.awt.event.ActionListener() {
@@ -95,9 +91,9 @@ public static TreeSet<Producto> listaProductos =new TreeSet<>();
                 jMenuxPrec4ActionPerformed(evt);
             }
         });
-        jMenuCunsultas.add(jMenuxPrec4);
+        jMenuConsultas.add(jMenuxPrec4);
 
-        jMenuBar1.add(jMenuCunsultas);
+        jMenuBar1.add(jMenuConsultas);
 
         setJMenuBar(jMenuBar1);
 
@@ -142,9 +138,9 @@ public static TreeSet<Producto> listaProductos =new TreeSet<>();
        JEscritorio.moveToFront(bpr);
     }//GEN-LAST:event_jMenuxRubro2ActionPerformed
 
-    private void jMenuCunsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCunsultasActionPerformed
+    private void jMenuConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsultasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuCunsultasActionPerformed
+    }//GEN-LAST:event_jMenuConsultasActionPerformed
 
     private void jMenuxPrec4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuxPrec4ActionPerformed
        JEscritorio.removeAll();
@@ -195,30 +191,22 @@ public static TreeSet<Producto> listaProductos =new TreeSet<>();
     private javax.swing.JDesktopPane JEscritorio;
     private javax.swing.JMenu jMenuAdmin;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenu jMenuCunsultas;
+    private javax.swing.JMenu jMenuConsultas;
     private javax.swing.JMenuItem jMenuProduct1;
     private javax.swing.JMenuItem jMenuxNom3;
     private javax.swing.JMenuItem jMenuxPrec4;
     private javax.swing.JMenuItem jMenuxRubro2;
     // End of variables declaration//GEN-END:variables
 
-    public void cargarProductos(){
+    /*public void cargarProductos(){
         listaProductos.add(new Producto(189,"Azucar 1kg", 34, 725.6,  almacen));
         listaProductos.add(new Producto(456,"LECHE 1L", 54, 5967.6, fiambres));
         listaProductos.add(new Producto(4875,"tupper 500ml", 98, 2984.6, bazar));
         listaProductos.add(new Producto(237,"desodorante rexona", 75, 984.6, perfumeria));
         listaProductos.add(new Producto(567,"lavandina 1L", 32, 1984.6, limpieza));
-    }
-    Categoria fiambres= new Categoria( 1,"Fiambres");
-    Categoria lacteos=new Categoria(2, "Lacteos");
-    Categoria almacen=new Categoria(3, "Almacen");
-    Categoria perfumeria=new Categoria(4, "Perfumeria");
-    Categoria bazar=new Categoria(5, "Bazar");
-    Categoria limpieza=new Categoria(6, "Limpieza");
+    }*/
  
    
     
-    
-
 
 }

@@ -1,65 +1,41 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package laboratorio.practica6;
 
-/**
- *
- * @author Roma
- */
-public class Producto implements Comparable<Producto> {
-    private int idProducto;
-    private int codigo;
-    private String descripcion;
-    private int stock;
+import java.util.Objects;
+
+public class Producto {
+    
+    private int Codigo;
+    private String Descripcion;
     private double precio;
-    private Categoria rubro;
+    private String rubro;
+    private int stock;
+
+    public Producto(int Codigo, String Descripcion, double precio, String rubro, int stock) {
+        this.Codigo = Codigo;
+        this.Descripcion = Descripcion;
+        this.precio = precio;
+        this.rubro = rubro;
+        this.stock = stock;
+    }
 
     public Producto() {
     }
-    
-    public Producto(int codigo, String descripcion, int stock, double precio, Categoria rubro) {
-        this.codigo = codigo;
-        this.descripcion = descripcion;
-        this.stock = stock;
-        this.precio = precio;
-        this.rubro = rubro;
-    }
-
-    public int getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
-    }
-
-    
-   
 
     public int getCodigo() {
-        return codigo;
+        return Codigo;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCodigo(int Codigo) {
+        this.Codigo = Codigo;
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return Descripcion;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getStock() {
-        return stock;
-    }
-
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setDescripcion(String Descripcion) {
+        this.Descripcion = Descripcion;
     }
 
     public double getPrecio() {
@@ -70,34 +46,35 @@ public class Producto implements Comparable<Producto> {
         this.precio = precio;
     }
 
-    public Categoria getRubro() {
+    public String getRubro() {
         return rubro;
     }
 
-    public void setRubro(Categoria rubro) {
+    public void setRubro(String rubro) {
         this.rubro = rubro;
     }
 
-    @Override
-    public int compareTo(Producto o) {
-        if(codigo == o.codigo){
-            return 0;
-        }else if(codigo > o.codigo){
-            return 1;
-        }else{
-            return -1;
-        }
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     @Override
     public String toString() {
-        return "Producto{" + "codigo=" + codigo + ", descripcion=" + descripcion + ", stock=" + stock + ", precio=" + precio + ", rubro=" + rubro + '}';
+        return "Producto{" + "Codigo=" + Codigo + ", Descripcion=" + Descripcion + ", precio=" + precio + ", rubro=" + rubro + ", stock=" + stock + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + this.idProducto;
+        hash = 29 * hash + this.Codigo;
+        hash = 29 * hash + Objects.hashCode(this.Descripcion);
+        hash = 29 * hash + (int) (Double.doubleToLongBits(this.precio) ^ (Double.doubleToLongBits(this.precio) >>> 32));
+        hash = 29 * hash + Objects.hashCode(this.rubro);
+        hash = 29 * hash + this.stock;
         return hash;
     }
 
@@ -113,12 +90,19 @@ public class Producto implements Comparable<Producto> {
             return false;
         }
         final Producto other = (Producto) obj;
-        if (this.idProducto!= other.idProducto){
+        if (this.Codigo != other.Codigo) {
             return false;
         }
-        return true;
+        if (Double.doubleToLongBits(this.precio) != Double.doubleToLongBits(other.precio)) {
+            return false;
+        }
+        if (this.stock != other.stock) {
+            return false;
+        }
+        if (!Objects.equals(this.Descripcion, other.Descripcion)) {
+            return false;
+        }
+        return Objects.equals(this.rubro, other.rubro);
     }
-    
-    
     
 }
