@@ -83,7 +83,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jbBuscador" min="-2" pref="42" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jBNuevo" max="32767" attributes="0"/>
+                      <Component id="jBNuevo" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jBBorrar" min="-2" pref="45" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
