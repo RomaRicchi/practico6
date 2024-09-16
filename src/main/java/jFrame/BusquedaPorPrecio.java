@@ -61,8 +61,8 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
             }
         ));
         jTablexPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTablexPrecioKeyReleased(evt);
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTablexPrecioKeyTyped(evt);
             }
         });
         jScrollPane1.setViewportView(jTablexPrecio);
@@ -72,6 +72,12 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("y");
+
+        jTPrecioMax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTPrecioMaxKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,8 +120,8 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTablexPrecioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTablexPrecioKeyReleased
-       modelo.setRowCount(0);
+    private void jTablexPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTablexPrecioKeyTyped
+        modelo.setRowCount(0);
         
         Gestiones gestiones = new Gestiones();
         String textprecio1= jTPrecioMin.getText();
@@ -132,7 +138,29 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
                                       productos.getStock()}
             );
         }
-    }//GEN-LAST:event_jTablexPrecioKeyReleased
+    
+    }//GEN-LAST:event_jTablexPrecioKeyTyped
+
+    private void jTPrecioMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPrecioMaxKeyReleased
+         modelo.setRowCount(0);
+        
+        Gestiones gestiones = new Gestiones();
+        String textprecio1= jTPrecioMin.getText();
+        double precioMin = Double.parseDouble(textprecio1);
+        String textprecio2= jTPrecioMax.getText();
+        double precioMax = Double.parseDouble(textprecio2);
+                
+        TreeSet<Producto> filtrado = gestiones.buscarXPrecio(precioMin, precioMax);
+        for(Producto productos : filtrado){
+            modelo.addRow(new Object[]{productos.getCodigo(), 
+                                      productos.getDescripcion(),
+                                      productos.getPrecio(),
+                                      productos.getRubro(),
+                                      productos.getStock()}
+            );
+        }
+    
+    }//GEN-LAST:event_jTPrecioMaxKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
