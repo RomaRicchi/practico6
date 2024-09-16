@@ -4,8 +4,10 @@
  */
 package jFrame;
 
+import clases.Gestiones;
 import javax.swing.table.DefaultTableModel;
 import clases.Producto;
+import java.util.TreeSet;
 
 /**
  *
@@ -40,9 +42,9 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablexPrecio = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTPrecioMin = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        jTPrecioMax = new javax.swing.JTextField();
 
         jLTituloxPrecio.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
         jLTituloxPrecio.setText("Listado por Producto");
@@ -58,6 +60,11 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTablexPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTablexPrecioKeyTyped(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTablexPrecio);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -65,6 +72,12 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("y");
+
+        jTPrecioMax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTPrecioMaxKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,11 +92,11 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
                         .addGap(51, 51, 51)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTPrecioMin, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTPrecioMax, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -96,9 +109,9 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTPrecioMin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTPrecioMax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
@@ -107,15 +120,57 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTablexPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTablexPrecioKeyTyped
+        modelo.setRowCount(0);
+        
+        Gestiones gestiones = new Gestiones();
+        String textprecio1= jTPrecioMin.getText();
+        double precioMin = Double.parseDouble(textprecio1);
+        String textprecio2= jTPrecioMax.getText();
+        double precioMax = Double.parseDouble(textprecio2);
+                
+        TreeSet<Producto> filtrado = gestiones.buscarXPrecio(precioMin, precioMax);
+        for(Producto productos : filtrado){
+            modelo.addRow(new Object[]{productos.getCodigo(), 
+                                      productos.getDescripcion(),
+                                      productos.getPrecio(),
+                                      productos.getRubro(),
+                                      productos.getStock()}
+            );
+        }
+    
+    }//GEN-LAST:event_jTablexPrecioKeyTyped
+
+    private void jTPrecioMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPrecioMaxKeyReleased
+         modelo.setRowCount(0);
+        
+        Gestiones gestiones = new Gestiones();
+        String textprecio1= jTPrecioMin.getText();
+        double precioMin = Double.parseDouble(textprecio1);
+        String textprecio2= jTPrecioMax.getText();
+        double precioMax = Double.parseDouble(textprecio2);
+                
+        TreeSet<Producto> filtrado = gestiones.buscarXPrecio(precioMin, precioMax);
+        for(Producto productos : filtrado){
+            modelo.addRow(new Object[]{productos.getCodigo(), 
+                                      productos.getDescripcion(),
+                                      productos.getPrecio(),
+                                      productos.getRubro(),
+                                      productos.getStock()}
+            );
+        }
+    
+    }//GEN-LAST:event_jTPrecioMaxKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLTituloxPrecio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTPrecioMax;
+    private javax.swing.JTextField jTPrecioMin;
     private javax.swing.JTable jTablexPrecio;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 public void armarModelo(){
        modelo.addColumn("Codigo");
