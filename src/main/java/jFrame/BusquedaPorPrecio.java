@@ -8,6 +8,7 @@ import clases.Gestiones;
 import javax.swing.table.DefaultTableModel;
 import clases.Producto;
 import java.util.TreeSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -121,12 +122,18 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTablexPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTablexPrecioKeyTyped
-        modelo.setRowCount(0);
+    
+    }//GEN-LAST:event_jTablexPrecioKeyTyped
+
+    private void jTPrecioMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPrecioMaxKeyReleased
+       modelo.setRowCount(0);
         
         Gestiones gestiones = new Gestiones();
         String textprecio1= jTPrecioMin.getText();
-        double precioMin = Double.parseDouble(textprecio1);
         String textprecio2= jTPrecioMax.getText();
+        
+        try{
+        double precioMin = Double.parseDouble(textprecio1);
         double precioMax = Double.parseDouble(textprecio2);
                 
         TreeSet<Producto> filtrado = gestiones.buscarXPrecio(precioMin, precioMax);
@@ -138,26 +145,7 @@ public class BusquedaPorPrecio extends javax.swing.JInternalFrame {
                                       productos.getStock()}
             );
         }
-    
-    }//GEN-LAST:event_jTablexPrecioKeyTyped
-
-    private void jTPrecioMaxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTPrecioMaxKeyReleased
-         modelo.setRowCount(0);
-        
-        Gestiones gestiones = new Gestiones();
-        String textprecio1= jTPrecioMin.getText();
-        double precioMin = Double.parseDouble(textprecio1);
-        String textprecio2= jTPrecioMax.getText();
-        double precioMax = Double.parseDouble(textprecio2);
-                
-        TreeSet<Producto> filtrado = gestiones.buscarXPrecio(precioMin, precioMax);
-        for(Producto productos : filtrado){
-            modelo.addRow(new Object[]{productos.getCodigo(), 
-                                      productos.getDescripcion(),
-                                      productos.getPrecio(),
-                                      productos.getRubro(),
-                                      productos.getStock()}
-            );
+        }catch (NumberFormatException e){
         }
     
     }//GEN-LAST:event_jTPrecioMaxKeyReleased

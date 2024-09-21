@@ -196,7 +196,7 @@ public class Gestion extends javax.swing.JInternalFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        jBNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-new.png"))); // NOI18N
+        jBNuevo.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-new.png")); // NOI18N
         jBNuevo.setText("Nuevo");
         jBNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +204,7 @@ public class Gestion extends javax.swing.JInternalFrame {
             }
         });
 
-        jBGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-save.png"))); // NOI18N
+        jBGuardar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-save.png")); // NOI18N
         jBGuardar.setText("Guardar");
         jBGuardar.setEnabled(false);
         jBGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +213,7 @@ public class Gestion extends javax.swing.JInternalFrame {
             }
         });
 
-        jBActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/aprov.png"))); // NOI18N
+        jBActualizar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\aprov.png")); // NOI18N
         jBActualizar.setText("Confirmar");
         jBActualizar.setEnabled(false);
         jBActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +222,7 @@ public class Gestion extends javax.swing.JInternalFrame {
             }
         });
 
-        jBBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basura.png"))); // NOI18N
+        jBBorrar.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\basura.png")); // NOI18N
         jBBorrar.setText("Eliminar");
         jBBorrar.setEnabled(false);
         jBBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -231,14 +231,14 @@ public class Gestion extends javax.swing.JInternalFrame {
             }
         });
 
-        jBSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cruz.png"))); // NOI18N
+        jBSalir.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\cruz.png")); // NOI18N
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBSalirActionPerformed(evt);
             }
         });
 
-        jbBuscador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon-update.png"))); // NOI18N
+        jbBuscador.setIcon(new javax.swing.ImageIcon("C:\\Users\\tomas\\Documents\\GitHub\\practico6\\src\\main\\resources\\images\\icon-update.png")); // NOI18N
         jbBuscador.setText("Editar");
         jbBuscador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
